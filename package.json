@@ -1,0 +1,9 @@
+{
+  "name": "libz",
+  "version": "0.0.1",
+  "description": "My personal javascript library.",
+  "main": "index.js",
+  "repository": "https://github.com/ztytotoro/libz.git",
+  "author": "Yarn",
+  "license": "MIT"
+}
