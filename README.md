@@ -1,0 +1,2 @@
+# libz
+Common javascript functions.
