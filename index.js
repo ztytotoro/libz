@@ -11,7 +11,7 @@ export function All(array, predicate) {
     return true;
 }
 
-export function once(array, predicate) {
+export function Once(array, predicate) {
     for (let i = 0; i < array.length; i++) {
         if (!predicate(array[i], i, array)) {
             return true;
