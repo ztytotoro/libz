@@ -6,6 +6,8 @@ export const IsBoolean = IsTypeBuilder("boolean")
 
 export const IsObject = IsInstanceBuilder(Object)
 
+export const IsFunction = IsInstanceBuilder(Function)
+
 export const IsArray = IsInstanceBuilder(Array)
 
 export function IsInstanceBuilder(instance) {
@@ -34,7 +36,7 @@ export function ListenLess(fun, tailProp) {
     }
 }
 
-export function CheckProp(props) {
+export function CheckProp(desc, args) {
     let result = [];
     if (IsObject(props)) {
         ForOwn(props, (prop, value) => {
@@ -46,8 +48,43 @@ export function CheckProp(props) {
     return result;
 }
 
-export function ForOwn(object, cb) {
-    for (prop in object) {
-        if (object.hasOwnProperty(prop)) cb(prop, object[prop]);
+export function Exception() {
+
+}
+
+// push
+export function PurePush(arr, x) {
+    return [...arr, x];
+}
+
+export function Concat(a, b) {
+    return a.concat(b)
+}
+
+export function Equal(a) {
+    return function(b) {
+        return a == b;
+    }
+}
+
+export function StrictEqual(a) {
+    return function (b) {
+        return a === b;
+    }
+}
+
+export function Matches() {
+
+}
+
+export function Match(validator, value) {
+    return function (value) {
+        return validator(value);
+    }
+}
+
+export function MatchesOne(validator, values) {
+    return function(values) {
+        ForEach(values)(validator)
     }
 }

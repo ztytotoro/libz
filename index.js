@@ -1,25 +1,12 @@
-// Test if a value is empty or not.
 export function IsEmpty(value) {
-    return value === undefined || value === null || value === "";
+    return value === "" || value === undefined || value === null;
 }
 
-// push
-export function PurePush(arr, x) {
-    return [...arr, x];
-}
-
-export function Equal(a, b) {
-    return a == b;
-}
-
-export function StrictEqual(a, b) {
-    return a === b;
-}
-
-export function Match(validator, value) {
-    return validator(value);
-}
-
-export function MatchesOne(validator, values) {
-
+export function all(array, predicate) {
+    for (let i = 0; i < array.length; i++) {
+        if (!predicate(array[i], i, array)) {
+            return false;
+        }
+    }
+    return true;
 }
