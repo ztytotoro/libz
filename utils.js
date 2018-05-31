@@ -3,7 +3,7 @@ export function GenerateTree(data, id, pid) {
     let t = DeepCopy(data);
     for (let i = 0; i < t.length; i++) {
         t[i].children = [];
-        for (j = 0; j < t.length; j++) {
+        for (let j = 0; j < t.length; j++) {
             if (i !== j) {
                 if (t[i][id] === t[j][pid]) {
                     t[i].children.push(t[j]);
