@@ -34,19 +34,3 @@ export function StrictEqual(a) {
         return a === b;
     }
 }
-
-export function Matches() {
-
-}
-
-export function Match(validator, value) {
-    return function (value) {
-        return validator(value);
-    }
-}
-
-export function MatchesOne(validator, values) {
-    return function(values) {
-        ForEach(values)(validator)
-    }
-}

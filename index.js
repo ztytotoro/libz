@@ -2,20 +2,7 @@ export function IsEmpty(value) {
     return value === "" || value === undefined || value === null;
 }
 
-export function All(array, predicate) {
-    for (let i = 0; i < array.length; i++) {
-        if (!predicate(array[i], i, array)) {
-            return false;
-        }
-    }
-    return true;
-}
-
-export function Once(array, predicate) {
-    for (let i = 0; i < array.length; i++) {
-        if (predicate(array[i], i, array)) {
-            return true;
-        }
-    }
-    return false;
-}
+export * from "./curry.js";
+export * from "./iterator.js";
+export * from "./type.js";
+export * from "./factory.js";
