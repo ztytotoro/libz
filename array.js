@@ -3,9 +3,10 @@ export function FixedArray(length) {
 }
 
 export function DigTree(array, indexArray) {
-    let result = array;
-    for(let index of indexArray) {
-        result = result[index].children;
+    let index = indexArray.shift();
+    let result = array[index];
+    if(indexArray.length > 0) {
+        result = DigTree(result.children, indexArray);
     }
     return result;
 }
