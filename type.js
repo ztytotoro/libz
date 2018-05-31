@@ -43,7 +43,7 @@ export function IsType(target, type) {
         case "boolean": return IsBoolean(target);
         case "object": return IsObject(target);
         case "function": return IsFunction(target);
-        case "Array": return IsArray(target);
+        case "array": return IsArray(target);
         default: return null;
     }
 }

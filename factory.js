@@ -2,22 +2,23 @@ import {
     CheckProp
 } from "./core";
 import {
-    IsArray
+    IsArray, IsType
 } from "./type";
+import { All } from "./iterator";
 
-// 打包函数，加入传参检查，柯里化
-// 柯里化支持传入指定位置或指定名称的参数
-// props: 二维数组
-//      1: 参数名
-//      2：参数类型
-//      3: 参数描述
-function Pack(fun, props, direction = "left") {
-    let Curried = direction === "left" ? Curry(fun) : CurryRight(fun);
+
+function Pack(fun, props) {
     let Check = CheckProp(props)
-    return function (...args) {
-        if (Check(args)) {
-            Curried(...args)
-        }
+    return function(...args) {
+        if(All(args, (val, i) => {
+            if(IsArray(props[i])){
+                return IsType(val, props[i][1]);
+            }
+            else {
+                return IsType(val, props[i]);
+            }
+        }))
+        return fun(...args);
     }
 }
 
@@ -45,4 +46,79 @@ function Tell(a, b) {
 // eg: Bind()
 function Bind(a, b) {
 
+}
+
+export function If(expression) {
+    let t = cbt => {
+        if(expression) {
+            cbt();
+        }
+        return {
+            false(cbf) {
+                if(!expression) cbf();
+            }
+        }
+    }
+    let f = cbf => {
+        if(!expression) {
+            cbf();
+        }
+        return {
+            true(cbt) {
+                if(expression) cbt();
+            }
+        }
+    }
+    return {
+        true: t,
+        false: f
+    };
+}
+
+export class IfBuilder {
+    constructor() {
+        this.trueCb = () => {};
+        this.falseCb = () => {};
+        this.ex = expression => {
+            return expression;
+        };
+    };
+
+    get true() {
+        return this.trueCb;
+    }
+
+    set true(cb) {
+        this.trueCb = cb;
+    }
+
+    get false() {
+        return this.falseCb;
+    }
+
+    set false(cb) {
+        this.falseCb = cb;
+    }
+
+    get excutor() {
+        return this.ex;
+    }
+
+    set excutor(cb) {
+        this.ex = cb;
+    }
+
+    excute(val) {
+        if(this.ex(val)) {
+            return this.trueCb();
+        } else {
+            return this.falseCb();
+        }
+    }
+
+    resetExcutor() {
+        this.ex = expression => {
+            return expression;
+        };
+    }
 }
