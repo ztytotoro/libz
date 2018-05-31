@@ -5,7 +5,7 @@ function forOwn(object, predicate) {
     let result = {};
     for (prop in object) {
         if (object.hasOwnProperty(prop)) {
-            result[prop] = predicate(prop, object[prop]);
+            result[prop] = predicate(object[prop], prop);
         };
     }
     return result;
