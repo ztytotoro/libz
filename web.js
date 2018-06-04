@@ -5,11 +5,11 @@ export function Cookies(){
 }
 
 function onEvent(dom, event, handler) {
-    return dom["addEventListener"](event, handler);
+    return dom.addEventListener(event, handler, false);
 }
 
 function offEvent(dom, event, handler) {
-    return dom["removeEventListener"](event, handler);
+    return dom.removeEventListener(event, handler);
 }
 
 export const OnEvent = CurryRight(onEvent);
