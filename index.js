@@ -8,3 +8,4 @@ export * from "./type.js";
 export * from "./factory.js";
 export * from "./utils.js";
 export * from "./array.js";
+export * from "./web.js";
