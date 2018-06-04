@@ -65,8 +65,12 @@ export function TypeOf(target) {
 }
 
 export function IsEmptyObject(object) {
-    if(IsObject(object)){
-        if(JSON.stringify(object) === "{}") return true;
+    if(IsObject(object)) {
+        for(prop in object) {
+            if(object.hasOwnProperty(prop)) {
+                return true;
+            }
+        }
         return false;
     } else {
         return false;
