@@ -66,12 +66,12 @@ export function TypeOf(target) {
 
 export function IsEmptyObject(object) {
     if(IsObject(object)) {
-        for(prop in object) {
+        for(let prop in object) {
             if(object.hasOwnProperty(prop)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     } else {
         return false;
     }
