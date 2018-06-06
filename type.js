@@ -4,11 +4,18 @@ export const IsNumber = IsTypeBuilder("number")
 
 export const IsBoolean = IsTypeBuilder("boolean")
 
-export const IsObject = IsInstanceBuilder(Object)
-
-export const IsFunction = IsInstanceBuilder(Function)
+export const IsFunction = IsTypeBuilder("function")
 
 export const IsArray = IsInstanceBuilder(Array)
+
+export const IsCommonObject = IsInstanceBuilder(Object)
+
+export function IsObject(target) {
+    if(IsCommonObject(target)) {
+        return !IsFunction(target) && !IsArray(target);
+    }
+    return false;
+}
 
 function IsInstanceBuilder(instance) {
     return function (target) {
@@ -65,7 +72,7 @@ export function TypeOf(target) {
 }
 
 export function IsEmptyObject(object) {
-    if(IsObject(object)) {
+    if(IsObject(object) && !IsFunction(object) && !IsArray(object)) {
         for(let prop in object) {
             if(object.hasOwnProperty(prop)) {
                 return false;
