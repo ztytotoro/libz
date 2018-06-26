@@ -1,5 +1,5 @@
 import { CurryRight } from "./curry";
-import {IsArry, IsObject, IsFunction} from "./type.js";
+import {IsArray, IsObject, IsFunction} from "./type.js";
 
 function forOwn(object, predicate) {
     let result = {};
