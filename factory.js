@@ -2,9 +2,10 @@ import {
     CheckProp
 } from "./core";
 import {
-    IsArray, IsType
+    IsArray, IsType, IsFunction
 } from "./type";
 import { All } from "./iterator";
+import { CurryRight } from "./curry";
 
 
 function Pack(fun, props) {
@@ -22,18 +23,40 @@ function Pack(fun, props) {
     }
 }
 
-export function Flow(array, result = []) {
-    if (IsArray(array)) {
-        if (array.length > 0) {
-            return function (...args) {
-                result.push(array.shift()(...args));
-                if (array.length > 0) return Flow(array, result)
-                else return result;
+export function Flow(array) {
+    if(IsArray(array)){
+        if(array.length > 0){
+            return function(...args) {
+                let result = array[0](...args);
+                for(let i = 1;i < array.length; i++){
+                    result = array[i](result);
+                }
+                return result;
             }
         }
     }
-
 }
+
+function when(predicate, array) {
+    if(IsFunction(predicate)){
+        return function(...args) {
+            let t = predicate(...args);
+            for(let item of array) {
+                if(item[0] === t) {
+                    return item[1]();
+                }
+            }
+        }
+    } else {
+        for(let item of array) {
+            if(item[0] === predicate) {
+                return item[1]();
+            }
+        }
+    }
+}
+
+export const When = CurryRight(when);
 
 // use function a's result as function b's arguments
 function Tell(a, b) {
@@ -45,7 +68,9 @@ function Tell(a, b) {
 // 将函数b作为a的参数
 // eg: Bind()
 function Bind(a, b) {
-
+    return function(...args) {
+        a(b(...args))
+    }
 }
 
 export function If(expression) {
