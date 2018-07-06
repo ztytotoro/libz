@@ -2,7 +2,7 @@ import { Once } from "./iterator.js";
 
 export function IsEmpty(value) {
     let ValEqual = Equal(value);
-    let EqualOne = Once(valEqual);
+    let EqualOne = Once(ValEqual);
     return EqualOne([undefined, "", null]);
 }
 
