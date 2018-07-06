@@ -3,7 +3,7 @@ export default [{
     input: 'index.js',
     output: {
       file: 'dist/libz.js',
-      format: 'iife',
+      format: 'es',
       name: "libz"
     }
   }];
