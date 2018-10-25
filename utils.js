@@ -75,3 +75,21 @@ export function DeepCopy(x, validate) {
         return x;
     }
 }
+
+export function CompressImg (file) {
+    return new Promise((resolve, reject) => {
+        let url = URL.createObjectURL(file);
+        let img = new Image();
+        img.src = url;
+        img.onload = function () {
+            let canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            canvas.toBlob(b => {
+                resolve(new File([b], file.name, { type: file.type, lastModified: file.lastModified}));
+            }, file.type, 0.5);
+        };
+    });
+}
