@@ -60,6 +60,9 @@ function CompressImg(file) {
             canvas.toBlob(function (b) {
                 //b.lastModifiedDate = file.lastModifiedDate;
                 //b.name = file.name;
+                if(b.size > file.size) {
+                    resolve(file);
+                }
                 resolve(new File([b], file.name, { type: file.type, lastModified: file.lastModified }));
             }, file.type, 0.5);
         };
